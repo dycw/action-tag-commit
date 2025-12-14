@@ -19,8 +19,14 @@ runs:
     - name: Check out repo
       uses: actions/checkout@v6
       with:
-        path: "tmp-tag-commit"
         fetch-depth: 0
+
+    - uses: actions/checkout@v6
+      with:
+        repository: "dycw/action-tag-commit"
+        fetch-depth: 0
+        with:
+          path: "tag-commit"
 
     - name: Install 'uv'
       uses: astral-sh/setup-uv@v7
@@ -30,5 +36,5 @@ runs:
       shell: bash
 
     - name: Run 'script.py'
-      run: uv run tmp-tag-commit/script.py
+      run: uv run tag-commit/script.py
       shell: bash
