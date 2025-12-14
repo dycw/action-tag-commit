@@ -23,7 +23,9 @@ runs:
       uses: astral-sh/setup-uv@v7
 
     - name: Install 'bump-my-version'
+      shell: bash
       run: uv tool install bump-my-version
 
     - name: Run 'script.py'
+      shell: bash
       run: uv run script.py
