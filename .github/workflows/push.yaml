@@ -13,15 +13,3 @@ jobs:
         uses: dycw/action-tag-commit@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
-  release:
-    needs: tag
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v6
-
-      - name: Release action
-        uses: ncipollo/release-action@v1
