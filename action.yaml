@@ -18,6 +18,9 @@ runs:
   steps:
     - name: Check out repo
       uses: actions/checkout@v6
+      with:
+        path: "tmp-tag-commit"
+        fetch-depth: 0
 
     - name: Set up 'git' config
       run: |
@@ -33,5 +36,5 @@ runs:
       shell: bash
 
     - name: Run 'script.py'
-      run: uv run script.py
+      run: uv run tmp-tag-commit/script.py
       shell: bash
