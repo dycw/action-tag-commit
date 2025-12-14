@@ -19,13 +19,19 @@ runs:
     - name: Check out repo
       uses: actions/checkout@v6
 
+    - name: Set up 'git' config
+      run: |
+        git config user.name github-actions-bot
+        git config user.email noreply@github.com
+      shell: bash
+
     - name: Install 'uv'
       uses: astral-sh/setup-uv@v7
 
     - name: Install 'bump-my-version'
-      shell: bash
       run: uv tool install bump-my-version
+      shell: bash
 
     - name: Run 'script.py'
-      shell: bash
       run: uv run script.py
+      shell: bash
