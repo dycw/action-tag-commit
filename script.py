@@ -12,13 +12,17 @@ from __future__ import annotations
 
 from contextlib import suppress
 from logging import getLogger
-from subprocess import CalledProcessError, check_call, check_output
+from subprocess import CalledProcessError, check_output
+from typing import TYPE_CHECKING
 
 from click import command
 from typed_settings import click_options, option, settings
 from utilities.click import CONTEXT_SETTINGS_HELP_OPTION_NAMES
 from utilities.logging import basic_config
-from utilities.version import Version, parse_version
+from utilities.version import parse_version
+
+if TYPE_CHECKING:
+    from utilities.version import Version
 
 _LOGGER = getLogger(__name__)
 
@@ -46,16 +50,12 @@ def main(settings: Settings, /) -> None:
 
 
 def _config(name: str, email: str, /) -> None:
-    cmds1 = ["git", "config", "user.name", name]
-    _LOGGER.info("Running '%s'...", " ".join(cmds1))
-    cmds2 = ["git", "config", "user.email", email]
-    _LOGGER.info("Running '%s'...", " ".join(cmds2))
+    _ = _log_run("git", "config", "user.name", name)
+    _ = _log_run("git", "config", "user.email", email)
 
 
 def _get_version() -> Version:
-    cmds = ["bump-my-version", "show", "current_version"]
-    _LOGGER.info("Running '%s'...", " ".join(cmds))
-    return parse_version(check_output(cmds, text=True).rstrip("\n"))
+    return parse_version(_log_run("bump-my-version", "show", "current_version"))
 
 
 def _tag(version: str, /) -> None:
@@ -64,23 +64,20 @@ def _tag(version: str, /) -> None:
 
 
 def _delete_tag(version: str, /) -> None:
-    cmds1 = ["git", "tag", "--delete", version]
-    _LOGGER.info("Running '%s'...", " ".join(cmds1))
     with suppress(CalledProcessError):
-        _ = check_call(cmds1)
-    cmds2 = ["git", "push", "--delete", "origin", version]
-    _LOGGER.info("Running '%s'...", " ".join(cmds2))
+        _ = _log_run("git", "tag", "--delete", version)
     with suppress(CalledProcessError):
-        _ = check_call(cmds2)
+        _ = _log_run("git", "push", "--delete", "origin", version)
 
 
 def _add_tag(version: str, /) -> None:
-    cmds1 = ["git", "tag", "-a", version, "HEAD", "-m", version]
-    _LOGGER.info("Running '%s'...", " ".join(cmds1))
-    _ = check_call(cmds1)
-    cmds2 = ["git", "push", "--tags", "--force", "--set-upstream", "origin"]
-    _LOGGER.info("Running '%s'...", " ".join(cmds2))
-    _ = check_call(cmds2)
+    _ = _log_run("git", "tag", "-a", version, "HEAD", "-m", version)
+    _ = _log_run("git", "push", "--tags", "--force", "--set-upstream", "origin")
+
+
+def _log_run(*cmds: str) -> str:
+    _LOGGER.info("Running '%s'...", " ".join(cmds))
+    return check_output(cmds, text=True)
 
 
 if __name__ == "__main__":
