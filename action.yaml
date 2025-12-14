@@ -1,7 +1,9 @@
 name: tag-commit
 description: Tag the latest commit with the version read from 'bump-my-version'
-icon: activity
-color: gray-dark
+
+branding:
+  icon: activity
+  color: gray-dark
 
 inputs:
   repository:
