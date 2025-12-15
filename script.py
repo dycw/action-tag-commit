@@ -29,8 +29,11 @@ _LOGGER = getLogger(__name__)
 
 @settings
 class Settings:
-    user_name: str = "github-actions-bot"
-    user_email: str = "noreply@github.com"
+    user_name: str = option(default="github-actions-bot", help="'git' user name")
+    user_email: str = option(default="noreply@github.com", help="'git' user email")
+    major_minor: bool = option(default=False, help="Add the 'major.minor' tag")
+    major: bool = option(default=False, help="Add the 'major' tag")
+    latest: bool = option(default=False, help="Add the 'latest' tag")
     dry_run: bool = option(default=False, help="Dry run the CLI")
 
 
@@ -43,9 +46,12 @@ def main(settings: Settings, /) -> None:
     _config(settings.user_name, settings.user_email)
     version = _get_version()
     _tag(str(version))
-    _tag(f"{version.major}.{version.minor}")
-    _tag(str(version.major))
-    _tag("latest")
+    if settings.major_minor:
+        _tag(f"{version.major}.{version.minor}")
+    if settings.major:
+        _tag(str(version.major))
+    if settings.latest:
+        _tag("latest")
     _LOGGER.info("Finished")
 
 

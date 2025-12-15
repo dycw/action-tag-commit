@@ -6,12 +6,27 @@ branding:
   color: gray-dark
 
 inputs:
-  repository:
-    description: Repository Owner and Repository Name
-    default: ${{ github.repository }}
   token:
     description: GitHub Personal Access Token
     default: ${{ github.token }}
+  user-name:
+    description: "'git' user name"
+    default: github-actions-bot
+  user-email:
+    description: "'git' user email"
+    default: noreply@github.com
+  major-minor:
+    description: Add the 'major.minor' tag
+    default: false
+  major:
+    description: Add the 'major' tag
+    default: false
+  latest:
+    description: Add the 'latest' tag
+    default: false
+  dry-run:
+    description: Dry run the CLI
+    default: false
 
 runs:
   using: "composite"
@@ -36,5 +51,14 @@ runs:
       shell: bash
 
     - name: Run 'script.py'
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        APP_USER_NAME: ${{ inputs.user-name }}
+        APP_USER_EMAIL: ${{ inputs.user-email }}
+        APP_MAJOR_MINOR: ${{ inputs.major-minor }}
+        APP_MAJOR: ${{ inputs.major }}
+        APP_LATEST: ${{ inputs.latest }}
+        APP_DRY_RUN: ${{ inputs.dry-run }}
+
       run: uv run tag-commit/script.py
       shell: bash
