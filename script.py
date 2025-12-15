@@ -50,8 +50,8 @@ def main(settings: Settings, /) -> None:
 
 
 def _config(name: str, email: str, /) -> None:
-    _ = _log_run("git", "config", "user.name", name)
-    _ = _log_run("git", "config", "user.email", email)
+    _ = _log_run("git", "config", "--global", "user.name", name)
+    _ = _log_run("git", "config", "--global", "user.email", email)
 
 
 def _get_version() -> Version:
