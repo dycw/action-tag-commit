@@ -27,6 +27,10 @@ repos:
     rev: v0.9.3
   - hooks:
       - args:
+          - --github--push-tag
+          - --github--push-tag--major-minor
+          - --github--push-tag--major
+          - --github--push-tag--latest
           - --pre-commit--prettier
           - --pre-commit--ruff
           - --pre-commit--taplo
@@ -39,7 +43,7 @@ repos:
           - --ruff
         id: nitpick
     repo: https://github.com/dycw/pre-commit-hook-nitpick
-    rev: 0.2.2
+    rev: 0.2.5
   - hooks:
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
