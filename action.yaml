@@ -36,13 +36,6 @@ runs:
       with:
         fetch-depth: 0
 
-    - name: Check out 'dycw/action-tag-commit'
-      uses: actions/checkout@v6
-      with:
-        repository: dycw/action-tag-commit
-        fetch-depth: 0
-        path: tag-commit
-
     - name: Install 'uv'
       uses: astral-sh/setup-uv@v7
 
@@ -50,7 +43,11 @@ runs:
       run: uv tool install bump-my-version
       shell: bash
 
-    - name: Run 'script.py'
+    - name: Install 'dycw-tag-commit'
+      run: uv tool install tag-commit
+      shell: bash
+
+    - name: Run 'tag-commit'
       env:
         APP_TOKEN: ${{ inputs.token }}
         APP_USER_NAME: ${{ inputs.user-name }}
@@ -59,5 +56,5 @@ runs:
         APP_MAJOR: ${{ inputs.major }}
         APP_LATEST: ${{ inputs.latest }}
         APP_DRY_RUN: ${{ inputs.dry-run }}
-      run: uv run tag-commit/script.py
+      run: uvx tag-commit
       shell: bash
