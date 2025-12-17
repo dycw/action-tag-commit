@@ -5,7 +5,6 @@ from logging import getLogger
 from subprocess import CalledProcessError, check_output
 from typing import TYPE_CHECKING
 
-from utilities.logging import basic_config
 from utilities.version import parse_version
 
 from tag_commits.settings import SETTINGS
@@ -17,7 +16,7 @@ if TYPE_CHECKING:
 _LOGGER = getLogger(__name__)
 
 
-def main(
+def tag_commits(
     *,
     user_name: str = SETTINGS.user_name,
     user_email: str = SETTINGS.user_email,
@@ -63,6 +62,4 @@ def _log_run(*cmds: str) -> str:
     return check_output(cmds, text=True)
 
 
-if __name__ == "__main__":
-    basic_config(obj=__name__)
-    main()
+__all__ = ["tag_commits"]
