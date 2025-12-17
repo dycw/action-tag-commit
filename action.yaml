@@ -52,13 +52,12 @@ runs:
 
     - name: Run 'script.py'
       env:
-        GITHUB_TOKEN: ${{ inputs.token }}
+        APP_TOKEN: ${{ inputs.token }}
         APP_USER_NAME: ${{ inputs.user-name }}
         APP_USER_EMAIL: ${{ inputs.user-email }}
         APP_MAJOR_MINOR: ${{ inputs.major-minor }}
         APP_MAJOR: ${{ inputs.major }}
         APP_LATEST: ${{ inputs.latest }}
         APP_DRY_RUN: ${{ inputs.dry-run }}
-
       run: uv run tag-commit/script.py
       shell: bash
