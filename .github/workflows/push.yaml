@@ -1,37 +1,29 @@
+name: push
+
+"on":
+  push:
+    branches:
+      - master
+
 jobs:
-  publish:
-    environment:
-      name: pypi
-    needs:
-      - tag
-    permissions:
-      id-token: write
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Python package and upload distribution
-        uses: dycw/action-uv-publish@latest
-      - name: Check out repository
-        uses: actions/checkout@v6
-      - name: Install 'uv'
-        uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
-      - name: Build Python package
-        run: uv build
-      - name: Upload distribution
-        run: uv publish --trusted-publishing always
   tag:
     runs-on: ubuntu-latest
     steps:
       - name: Tag latest commit
         uses: dycw/action-tag-commit@latest
         with:
-          latest: true
+          token: ${{ secrets.GITHUB_TOKEN }}
           major: true
           major-minor: true
+          latest: true
+  publish:
+    environment:
+      name: pypi
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Python package and upload distribution
+        uses: dycw/action-uv-publish@latest
+        with:
           token: ${{ secrets.GITHUB_TOKEN }}
-name: push
-"on":
-  push:
-    branches:
-      - master
