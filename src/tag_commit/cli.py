@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from click import command
+from rich.pretty import pretty_repr
 from typed_settings import click_options
 from utilities.click import CONTEXT_SETTINGS_HELP_OPTION_NAMES
 from utilities.logging import basic_config
 
+from tag_commit import __version__
 from tag_commit.lib import tag_commit
 from tag_commit.logging import LOGGER
 from tag_commit.settings import Settings
@@ -13,6 +15,10 @@ from tag_commit.settings import Settings
 @command(**CONTEXT_SETTINGS_HELP_OPTION_NAMES)
 @click_options(Settings, "app", show_envvars_in_help=True)
 def _main(settings: Settings, /) -> None:
+    basic_config(obj=LOGGER)
+    LOGGER.info(
+        "Running version %s with settings:\n%s...", __version__, pretty_repr(settings)
+    )
     if settings.dry_run:
         LOGGER.info("Dry run; exiting...")
         return
@@ -26,5 +32,4 @@ def _main(settings: Settings, /) -> None:
 
 
 if __name__ == "__main__":
-    basic_config(obj=LOGGER)
     _main()
