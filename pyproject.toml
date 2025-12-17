@@ -9,11 +9,14 @@
     "dycw-utilities >=0.169.9",
     "typed-settings[attrs, click] >=25.3.0, <25.4",
   ]
-  description = "Library to set up cron jobs"
+  description = "Tag the latest commit with the version read from `bump-my-version`"
   name = "dycw-tag-commit"
   readme = "README.md"
   requires-python = ">= 3.14"
   version = "0.2.0"
+
+  [project.scripts]
+    setup-cronjob = "setup_cronjob.cli:_main"
 
 [dependency-groups]
   dev = ["dycw-utilities[test]", "rich"]

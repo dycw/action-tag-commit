@@ -5,50 +5,36 @@ from logging import getLogger
 from subprocess import CalledProcessError, check_output
 from typing import TYPE_CHECKING
 
-from click import command
-from typed_settings import click_options, option, settings
-from utilities.click import CONTEXT_SETTINGS_HELP_OPTION_NAMES
 from utilities.logging import basic_config
 from utilities.version import parse_version
+
+from tag_commits.settings import SETTINGS
 
 if TYPE_CHECKING:
     from utilities.version import Version
 
+
 _LOGGER = getLogger(__name__)
 
 
-@settings
-class Settings:
-    token: str = option(default="token", help="GitHub token")
-    user_name: str = option(default="github-actions-bot", help="'git' user name")
-    user_email: str = option(default="noreply@github.com", help="'git' user email")
-    major_minor: bool = option(default=False, help="Add the 'major.minor' tag")
-    major: bool = option(default=False, help="Add the 'major' tag")
-    latest: bool = option(default=False, help="Add the 'latest' tag")
-    dry_run: bool = option(default=False, help="Dry run the CLI")
-
-
-@command(**CONTEXT_SETTINGS_HELP_OPTION_NAMES)
-@click_options(Settings, "app", show_envvars_in_help=True)
-def main(settings: Settings, /) -> None:
-    if settings.dry_run:
-        _LOGGER.info("Dry run; exiting...")
-        return
-    _config(settings.user_name, settings.user_email)
+def main(
+    *,
+    user_name: str = SETTINGS.user_name,
+    user_email: str = SETTINGS.user_email,
+    major_minor: bool = SETTINGS.major_minor,
+    major: bool = SETTINGS.major,
+    latest: bool = SETTINGS.latest,
+) -> None:
+    _ = _log_run("git", "config", "--global", "user.name", user_name)
+    _ = _log_run("git", "config", "--global", "user.email", user_email)
     version = _get_version()
     _tag(str(version))
-    if settings.major_minor:
+    if major_minor:
         _tag(f"{version.major}.{version.minor}")
-    if settings.major:
+    if major:
         _tag(str(version.major))
-    if settings.latest:
+    if latest:
         _tag("latest")
-    _LOGGER.info("Finished")
-
-
-def _config(name: str, email: str, /) -> None:
-    _ = _log_run("git", "config", "--global", "user.name", name)
-    _ = _log_run("git", "config", "--global", "user.email", email)
 
 
 def _get_version() -> Version:
