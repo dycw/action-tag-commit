@@ -20,7 +20,7 @@
     tag-commit = "tag_commit.cli:_main"
 
 [dependency-groups]
-  dev = ["dycw-utilities[test]", "pyright"]
+  dev = ["dycw-utilities[test]", "pyright", "rich"]
 
 [tool]
   [tool.uv]
