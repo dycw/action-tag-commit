@@ -1,21 +1,4 @@
-name: push
-
-"on":
-  push:
-    branches:
-      - master
-
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Tag latest commit
-        uses: dycw/action-tag-commit@latest
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          major-minor: true
-          major: true
-          latest: true
   publish:
     environment:
       name: pypi
@@ -27,3 +10,19 @@ jobs:
         uses: dycw/action-uv-publish@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          trusted-publishing: true
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tag latest commit
+        uses: dycw/action-tag-commit@latest
+        with:
+          latest: true
+          major: true
+          major-minor: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+name: push
+"on":
+  push:
+    branches:
+      - master

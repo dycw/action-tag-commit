@@ -25,11 +25,12 @@ repos:
     rev: v0.9.3
   - hooks:
       - args:
+          - --github--push--publish
+          - --github--push--publish--trusted-publishing
           - --github--push--tag
           - --github--push--tag--major-minor
           - --github--push--tag--major
           - --github--push--tag--latest
-          - --github--push--publish
           - --python-version=3.13
           - --pre-commit--prettier
           - --pre-commit--ruff
@@ -44,7 +45,7 @@ repos:
           - --ruff
         id: nitpick
     repo: https://github.com/dycw/pre-commit-hook-nitpick
-    rev: 0.3.6
+    rev: 0.3.7
   - hooks:
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
