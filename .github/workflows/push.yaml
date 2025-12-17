@@ -19,8 +19,6 @@ jobs:
   publish:
     environment:
       name: pypi
-    needs:
-      - tag
     permissions:
       id-token: write
     runs-on: ubuntu-latest
