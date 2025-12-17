@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from click import command
-from tag_commits.lib import tag_commits
-from tag_commits.logging import LOGGER
-from tag_commits.settings import Settings
 from typed_settings import click_options
 from utilities.click import CONTEXT_SETTINGS_HELP_OPTION_NAMES
 from utilities.logging import basic_config
+
+from tag_commit.lib import tag_commit
+from tag_commit.logging import LOGGER
+from tag_commit.settings import Settings
 
 
 @command(**CONTEXT_SETTINGS_HELP_OPTION_NAMES)
@@ -15,7 +16,7 @@ def _main(settings: Settings, /) -> None:
     if settings.dry_run:
         LOGGER.info("Dry run; exiting...")
         return
-    tag_commits(
+    tag_commit(
         user_name=settings.user_name,
         user_email=settings.user_email,
         major_minor=settings.major_minor,
