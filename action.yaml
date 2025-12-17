@@ -42,7 +42,7 @@ runs:
         python-version: 3.13
 
     - name: Install 'bump-my-version'
-      run: uv tool install bump-my-version
+      run: uv tool install --reinstall bump-my-version
       shell: bash
 
     - name: Run 'tag-commit'
@@ -54,5 +54,5 @@ runs:
         APP_MAJOR: ${{ inputs.major }}
         APP_LATEST: ${{ inputs.latest }}
         APP_DRY_RUN: ${{ inputs.dry-run }}
-      run: uv run --with=dycw-tag-commit tag-commit
+      run: uv run --with=dycw-tag-commit --reinstall tag-commit
       shell: bash
