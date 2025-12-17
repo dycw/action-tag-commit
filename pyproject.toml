@@ -16,7 +16,7 @@
   version = "0.2.0"
 
   [project.scripts]
-    setup-cronjob = "setup_cronjob.cli:_main"
+    tag-commit = "tag_commit.cli:_main"
 
 [dependency-groups]
   dev = ["dycw-utilities[test]", "rich"]
