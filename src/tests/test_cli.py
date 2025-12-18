@@ -5,6 +5,6 @@ from subprocess import check_call
 from utilities.pathlib import get_repo_root
 
 
-class TestScript:
+class TestCLI:
     def test_main(self) -> None:
         _ = check_call(["tag-commit", "--dry-run"], cwd=get_repo_root())
