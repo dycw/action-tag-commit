@@ -49,7 +49,7 @@ runs:
       run: uv tool install --reinstall dycw-actions
       shell: bash
 
-    - name: Run 'tag-commit'
+    - name: Run 'action tag'
       env:
         TOKEN: ${{ inputs.token }}
         USER_NAME: ${{ inputs.user-name }}
