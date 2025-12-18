@@ -39,6 +39,7 @@ repos:
           - --pre-commit--uv
           - --pyproject
           - --pyproject--project--name=dycw-tag-commit
+          - --pyproject--tool--uv--build-backend=tag_commit
           - --pyright
           - --pyright--include=src
           - --pytest
