@@ -1,5 +1,5 @@
 name: tag-commit
-description: Tag the latest commit
+description: Tag latest commit
 
 branding:
   icon: activity

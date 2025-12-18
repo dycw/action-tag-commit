@@ -1,3 +1,3 @@
 # `action-tag`
 
-Tag the latest commit
+Tag latest commit
