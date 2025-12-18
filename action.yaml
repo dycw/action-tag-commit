@@ -45,6 +45,10 @@ runs:
       run: uv tool install --reinstall bump-my-version
       shell: bash
 
+    - name: Install 'dycw-tag-commit'
+      run: uv tool install --reinstall dycw-tag-commit
+      shell: bash
+
     - name: Run 'tag-commit'
       env:
         APP_TOKEN: ${{ inputs.token }}
@@ -54,5 +58,5 @@ runs:
         APP_MAJOR: ${{ inputs.major }}
         APP_LATEST: ${{ inputs.latest }}
         APP_DRY_RUN: ${{ inputs.dry-run }}
-      run: uv tool run --from dycw-tag-commit --isolated --reinstall tag-commit
+      run: uv tool run --from dycw-tag-commit --isolated tag-commit
       shell: bash
