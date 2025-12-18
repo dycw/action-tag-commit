@@ -1,16 +1,4 @@
 jobs:
-  publish:
-    environment:
-      name: pypi
-    permissions:
-      id-token: write
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Python package and upload distribution
-        uses: dycw/action-uv-publish@latest
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          trusted-publishing: true
   tag:
     runs-on: ubuntu-latest
     steps:
