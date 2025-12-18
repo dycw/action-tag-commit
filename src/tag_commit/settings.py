@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from typed_settings import option, settings
+from typed_settings import Secret, option, secret, settings
 
 
 @settings
 class Settings:
-    token: str = option(default="token", help="GitHub token")
+    token: Secret | None = secret(default=None, help="GitHub token")
     user_name: str = option(default="github-actions-bot", help="'git' user name")
     user_email: str = option(default="noreply@github.com", help="'git' user email")
     major_minor: bool = option(default=False, help="Add the 'major.minor' tag")
