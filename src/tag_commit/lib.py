@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from contextlib import suppress
-from logging import getLogger
 from subprocess import CalledProcessError, check_output
 
 from utilities.version import parse_version
 
+from tag_commit import __version__
+from tag_commit.logging import LOGGER
 from tag_commit.settings import SETTINGS
-
-_LOGGER = getLogger(__name__)
 
 
 def tag_commit(
@@ -19,6 +18,22 @@ def tag_commit(
     major: bool = SETTINGS.major,
     latest: bool = SETTINGS.latest,
 ) -> None:
+    LOGGER.info(
+        """\
+Running %s with settings:
+ - user_name   = %s,
+ - user_email  = %s,
+ - major_minor = %s,
+ - major       = %s,
+ - latest      = %s,
+ """,
+        __version__,
+        user_name,
+        user_email,
+        major_minor,
+        major,
+        latest,
+    )
     _ = _log_run("git", "config", "--global", "user.name", user_name)
     _ = _log_run("git", "config", "--global", "user.email", user_email)
     version = parse_version(_log_run("bump-my-version", "show", "current_version"))
@@ -41,7 +56,7 @@ def _tag(version: str, /) -> None:
 
 
 def _log_run(*cmds: str) -> str:
-    _LOGGER.info("Running '%s'...", " ".join(cmds))
+    LOGGER.info("Running '%s'...", " ".join(cmds))
     return check_output(cmds, text=True)
 
 
