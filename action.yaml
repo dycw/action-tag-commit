@@ -1,5 +1,5 @@
 name: tag-commit
-description: Tag the latest commit with the version read from 'bump-my-version'
+description: Tag the latest commit
 
 branding:
   icon: activity
@@ -45,8 +45,8 @@ runs:
       run: uv tool install --reinstall bump-my-version
       shell: bash
 
-    - name: Install 'dycw-tag-commit'
-      run: uv tool install --reinstall dycw-tag-commit
+    - name: Install 'dycw-actions'
+      run: uv tool install --reinstall dycw-actions
       shell: bash
 
     - name: Run 'tag-commit'
@@ -58,5 +58,5 @@ runs:
         MAJOR: ${{ inputs.major }}
         LATEST: ${{ inputs.latest }}
         DRY_RUN: ${{ inputs.dry-run }}
-      run: uv tool run --from dycw-tag-commit --isolated tag-commit
+      run: uv tool run --from dycw-actions --isolated action tag
       shell: bash
