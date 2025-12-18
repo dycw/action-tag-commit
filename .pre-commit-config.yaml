@@ -32,14 +32,14 @@ repos:
           - --github--push--tag--major-minor
           - --github--push--tag--major
           - --github--push--tag--latest
+          - --package-name=dycw-tag-commit
           - --python-version=3.13
           - --pre-commit--prettier
           - --pre-commit--ruff
           - --pre-commit--taplo
           - --pre-commit--uv
           - --pyproject
-          - --pyproject--project--name=dycw-tag-commit
-          - --pyproject--tool--uv--build-backend=tag_commit
+          - --python-package-name=tag_commit
           - --pyright
           - --pyright--include=src
           - --pytest
@@ -49,7 +49,7 @@ repos:
           - --ruff
         id: nitpick
     repo: https://github.com/dycw/pre-commit-hook-nitpick
-    rev: 0.3.19
+    rev: 0.4.3
   - hooks:
       - id: check-executables-have-shebangs
       - id: check-merge-conflict

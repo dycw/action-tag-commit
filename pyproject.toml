@@ -6,7 +6,7 @@
   authors = [{ email = "d.wan@icloud.com", name = "Derek Wan" }]
   dependencies = [
     "click >=8.3.1, <8.4",
-    "dycw-utilities >=0.169.9, <0.170",
+    "dycw-utilities >=0.170.0, <0.171",
     "rich>=14.2.0, <14.3",
     "typed-settings[attrs, click] >=25.3.0, <25.4",
   ]
@@ -14,7 +14,7 @@
   name = "dycw-tag-commit"
   readme = "README.md"
   requires-python = ">= 3.13"
-  version = "0.4.7"
+  version = "0.5.0"
 
   [project.scripts]
     tag-commit = "tag_commit.cli:_main"
