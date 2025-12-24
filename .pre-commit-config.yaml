@@ -1,18 +1,10 @@
 repos:
-  - hooks:
-      - args:
-          - --option
-          - indent_tables=true
-          - --option
-          - indent_entries=true
-          - --option
-          - reorder_keys=true
-        id: taplo-format
-    repo: https://github.com/compwa/taplo-pre-commit
-    rev: v0.9.3
-  - hooks:
+  - repo: https://github.com/dycw/pre-commit-hook-nitpick
+    rev: 0.7.3
+    hooks:
       - args:
           - --description=Tag latest commit
+          - --github--pull-request--pre-commit
           - --github--push--tag
           - --github--push--tag--latest
           - --github--push--tag--major
@@ -22,31 +14,40 @@ repos:
           - --readme
           - --repo-name=action-tag
         id: nitpick
-    repo: https://github.com/dycw/pre-commit-hook-nitpick
-    rev: 0.5.6
-  - hooks:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
       - id: check-symlinks
       - id: destroyed-symlinks
       - id: detect-private-key
       - id: end-of-file-fixer
-      - args:
+      - id: mixed-line-ending
+        args:
           - --fix=lf
-        id: mixed-line-ending
       - id: no-commit-to-branch
-      - args:
+      - id: pretty-format-json
+        args:
           - --autofix
-        id: pretty-format-json
       - id: trailing-whitespace
-    repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
-  - hooks:
-      - entry: npx prettier --write
-        id: prettier
-        language: system
+  - repo: local
+    hooks:
+      - id: prettier
         name: prettier
+        entry: npx prettier --write
+        language: system
         types_or:
           - markdown
           - yaml
-    repo: local
+  - repo: https://github.com/compwa/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+        args:
+          - --option
+          - indent_tables=true
+          - --option
+          - indent_entries=true
+          - --option
+          - reorder_keys=true
