@@ -10,7 +10,7 @@ jobs:
       - name: Tag latest commit
         uses: dycw/action-tag@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{secrets.GITHUB_TOKEN}}
           major-minor: true
           major: true
           latest: true

@@ -12,7 +12,7 @@ jobs:
       - name: Run 'pre-commit'
         uses: dycw/action-pre-commit@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{secrets.GITHUB_TOKEN}}
           repos: |-
             dycw/pre-commit-hook-nitpick
             pre-commit/pre-commit-hooks
