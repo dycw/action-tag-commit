@@ -1,3 +1,8 @@
+name: push
+on:
+  push:
+    branches:
+      - master
 jobs:
   tag:
     runs-on: ubuntu-latest
@@ -5,12 +10,7 @@ jobs:
       - name: Tag latest commit
         uses: dycw/action-tag@latest
         with:
-          latest: true
-          major: true
-          major-minor: true
           token: ${{ secrets.GITHUB_TOKEN }}
-name: push
-"on":
-  push:
-    branches:
-      - master
+          major-minor: true
+          major: true
+          latest: true
