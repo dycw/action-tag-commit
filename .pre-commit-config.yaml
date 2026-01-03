@@ -1,6 +1,6 @@
 repos:
-  - repo: https://github.com/dycw/pre-commit-hook-nitpick
-    rev: 0.7.6
+  - repo: https://github.com/dycw/conformalize
+    rev: 0.10.10
     hooks:
       - args:
           - --description=Tag latest commit
@@ -13,7 +13,7 @@ repos:
           - --pre-commit--taplo
           - --readme
           - --repo-name=action-tag
-        id: nitpick
+        id: conformalize
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
